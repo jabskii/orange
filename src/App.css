@@ -1,8 +1,11 @@
 .App {
-    padding-top: 4rem;
-    min-height: 100vh;
+  background-color: #212121;
+  background-attachment: fixed;
+  background-position: center;
+  padding-top: 4rem;
+  min-height: 100vh;
 }
 
 .navbar {
-    background-color: #ef5350 !important;
+  background-color: #c13a1c !important;
 }
