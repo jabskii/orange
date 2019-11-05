@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -24,71 +25,81 @@ const Card = styled.div`
   -o-user-select: none;
 `;
 
+const StyledLink = styled(Link)`
+  text-decorations: one;
+  color: black;
+  &: focus,
+  &: hover,
+  &: visited,
+  &: link,
+  &: active {
+    text-decoration: none;
+  }
+`;
+
 export default class PlayerCard extends Component {
   state = {
-    playerIndex: '',
+    id: null,
     first_name: '',
     last_name: '',
     imageUrl: '',
-    full_name: '',
     imageLoading: true,
     tooManyRequests: false
   };
 
   componentDidMount() {
-    const { first_name, last_name, url, full_name } = this.props;
-    // const playerIndex = url.split('/');
+    const { id, first_name, last_name } = this.props;
     const imageUrl = `https://nba-players.herokuapp.com/players/${last_name}/${first_name}`;
 
     this.setState({
-      // playerIndex,
+      id,
       first_name,
       last_name,
-      imageUrl,
-      full_name
+      imageUrl
     });
   }
 
   render() {
     return (
       <div className="col-md-3 col-sm-6 mb-5">
-        <Card className="card">
-          <h5 className="card-header">
-            {this.state.first_name} {this.state.last_name}
-            {this.state.playerIndex}
-          </h5>
-          {this.state.imageLoading ? (
-            <img
-              src={spinner}
-              alt={{}}
-              style={{ width: '22px', height: '65px' }}
-              className="card-img-top rounded mx-auto d-block mt-2"
+        <StyledLink to={`players/${this.state.id}`}>
+          <Card className="card">
+            <h5 className="card-header">
+              {this.state.first_name} {this.state.last_name}
+            </h5>
+            {this.state.imageLoading ? (
+              <img
+                src={spinner}
+                alt={{}}
+                style={{ width: '22px', height: '65px' }}
+                className="card-img-top rounded mx-auto d-block mt-2"
+              />
+            ) : null}
+            <Headshot
+              className="card-img-top rounded mx-auto mt-2"
+              onLoad={() => this.setState({ imageLoading: false })}
+              onError={() => this.setState({ tooManyRequests: true })}
+              src={this.state.imageUrl}
+              style={
+                this.state.tooManyRequests
+                  ? { display: 'none' }
+                  : this.state.imageLoading
+                  ? null
+                  : { display: 'block' }
+              }
             />
-          ) : null}
-          <Headshot
-            className="card-img-top rounded mx-auto mt-2"
-            onLoad={() => this.setState({ imageLoading: false })}
-            onError={() => this.setState({ tooManyRequests: true })}
-            src={this.state.imageUrl}
-            style={
-              this.state.tooManyRequests
-                ? { display: 'none' }
-                : this.state.imageLoading
-                ? null
-                : { display: 'block' }
-            }
-          />
-          {this.state.tooManyRequests ? (
-            <h6 className="mx-auto">
-              <span className="badge badge-danger mt-2">
-                Too Many Requests OR Image Not Found
-              </span>
-            </h6>
-          ) : null}
-          <div className="card-body mx-auto">
-            <h6 className="card-title">{this.state.full_name}</h6>
-          </div>
-        </Card>
+            {this.state.tooManyRequests ? (
+              <h6 className="mx-auto">
+                <span className="badge badge-danger mt-2">
+                  Too Many Requests OR Image Not Found
+                </span>
+              </h6>
+            ) : null}
+            <div className="card-body mx-auto">
+              <h6 className="card-title">{this.state.full_name}</h6>
+            </div>
+          </Card>
+        </StyledLink>
       </div>
     );
   }
