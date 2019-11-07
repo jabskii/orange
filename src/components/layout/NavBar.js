@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import logoBrand from '../layout/orange.png';
 
 export default class NavBar extends Component {
+
   render() {
     return (
       <div>
