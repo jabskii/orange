@@ -5,8 +5,12 @@ Orange is part of the continuous assessment for Advanced JavaScript module in IA
 
 ## How to run Orange
 
-* Clone or download the repository.
-* Go to the repository directory, open and run this command in the terminal.
+* Download this repository or run this command in the terminal.
+```console
+git clone https://github.com/jabskii/orange.git
+cd orange
+```
+* Go to the repository directory, open and run this command.
 ```console
 npm install
 ```
