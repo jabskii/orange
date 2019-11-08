@@ -24,7 +24,7 @@ const TEAM_COLORS = {
   Knicks: 'ff6836',
   Thunder: 'ffb53e',
   Magic: '130c0d',
-  Sixers: 'fd1a4e',
+  '76ers': 'fd1a4e',
   Suns: 'ffa136',
   Blazers: 'f03b43',
   Kings: '602b7e',
@@ -57,11 +57,9 @@ export default class Player extends Component {
 
     // URLs for NBA Player information
     const playerUrl = `https://www.balldontlie.io/api/v1/players/${id}/`;
-    // const avgUrl = `https://www.balldontlie.io/api/v1/season_averages/?player_ids[]=${id}`;
 
     // Get NBA Player information
     const playerRes = await axios.get(playerUrl);
-    // const averageRes = await axios.get(avgUrl);
 
     const playerIndex = playerRes.data.id;
     const first_name = playerRes.data.first_name;
@@ -129,8 +127,9 @@ export default class Player extends Component {
                 <div className="col-md-3">
                   <img
                     src={this.state.imageUrl}
+                    alt={{}}
                     className="card-img-top rounded mx-auto mt-2"
-                  ></img>
+                  />
                 </div>
                 <div className="col-md-9">
                   <h6>

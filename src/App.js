@@ -7,6 +7,7 @@ import './App.css';
 import NavBar from './components/layout/NavBar';
 import Dashboard from './components/layout/Dashboard';
 import Player from './components/player/Player';
+import Team from './components/team/Team';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Dashboard} />
               <Route exact path="/players/:id" component={Player} />
+              <Route exact path="/teams/:id" component={Team} />
               <Dashboard />
             </Switch>
           </div>

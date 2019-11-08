@@ -4,17 +4,18 @@ import axios from 'axios';
 import PlayerCard from './PlayerCard';
 import Search from '../layout/Search';
 
-
 export default class PlayerList extends Component {
   state = {
-    url: 'https://www.balldontlie.io/api/v1/players/?per_page=10',
+    url: 'https://www.balldontlie.io/api/v1/players/?per_page=8',
     players: []
   };
 
   getPlayer = async e => {
     const playerName = e.target.elements.playerName.value;
     e.preventDefault();
-    const url = await fetch(`https://www.balldontlie.io/api/v1/players/?search=${playerName}`);
+    const url = await fetch(
+      `https://www.balldontlie.io/api/v1/players/?search=${playerName}`
+    );
     const data = await url.json();
     this.setState({ players: data.data });
     console.log(this.state.players);
@@ -37,17 +38,17 @@ export default class PlayerList extends Component {
                 id={players.id}
                 first_name={players.first_name}
                 last_name={players.last_name}
+                full_name={players.team.full_name}
                 url={players.url}
               />
             ))}
             {this.state.players.map(player => {
-            return <p key={player.id}>{player.first_name}</p>;
-          })}
+              return <p key={player.id}>{player.first_name}</p>;
+            })}
           </div>
         ) : (
           <h1>Loading NBA Players</h1>
-          )}
-        
+        )}
       </React.Fragment>
     );
   }

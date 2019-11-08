@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import spinner from '../player/spinner.gif';
 
-const Headshot = styled.img`
+const Teamshot = styled.img`
   width: 6em;
   height: 6em;
   display: none;
@@ -37,38 +37,33 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export default class PlayerCard extends Component {
+export default class TeamCard extends Component {
   state = {
     id: null,
-    first_name: '',
-    last_name: '',
-    imageUrl: '',
-    imageLoading: true,
-    tooManyRequests: false,
-    full_name: ''
+    full_name: '',
+    conference: '',
+    name: ''
   };
 
   componentDidMount() {
-    const { id, first_name, last_name, full_name } = this.props;
-    const imageUrl = `https://nba-players.herokuapp.com/players/${last_name}/${first_name}`;
+    const { id, full_name, conference, name } = this.props;
+    const imageUrl = `https://raw.githubusercontent.com/jabskii/team_images/master/img/${name}.png`;
 
     this.setState({
       id,
-      first_name,
-      last_name,
-      imageUrl,
-      full_name
+      full_name,
+      conference,
+      name,
+      imageUrl
     });
   }
 
   render() {
     return (
       <div className="col-md-3 col-sm-6 mb-5">
-        <StyledLink to={`players/${this.state.id}`}>
+        <StyledLink to={`teams/${this.state.id}`}>
           <Card className="card">
-            <h5 className="card-header">
-              {this.state.first_name} {this.state.last_name}
-            </h5>
+            <h5 className="card-header">{this.state.full_name}</h5>
             {this.state.imageLoading ? (
               <img
                 src={spinner}
@@ -77,7 +72,7 @@ export default class PlayerCard extends Component {
                 className="card-img-top rounded mx-auto d-block mt-2"
               />
             ) : null}
-            <Headshot
+            <Teamshot
               className="card-img-top rounded mx-auto mt-2"
               onLoad={() => this.setState({ imageLoading: false })}
               onError={() => this.setState({ tooManyRequests: true })}
@@ -98,7 +93,7 @@ export default class PlayerCard extends Component {
               </h6>
             ) : null}
             <div className="card-body mx-auto">
-              <h6 className="card-title">{this.state.full_name}</h6>
+              <h6 className="card-title">{this.state.conference}</h6>
             </div>
           </Card>
         </StyledLink>
